@@ -1,2 +1,2 @@
 # chatroom_nodejs
-Chatroom with nodejs
+Chatroom with nodejs and express
