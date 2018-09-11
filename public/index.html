@@ -1,15 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-ng-app="chatRoomApp">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Chat room</title>
+    <title>The chat room</title>
+
+    <link rel="stylesheet" href="./libs/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Welcome to the chatroom</h1>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="./js/script.js"></script>
+  <div class="container" data-ng-controller="mainCtrl">
+    <div class="row">
+      <div class="col-md-6">
+        <h1>The chat room</h1>
+        <form action="">
+            <div class="form-group row">
+              <label for="name" class="col-form-label">Name</label>
+              <input class="form-control" type="text" value="" name="name">
+            </div>
+            <div class="form-group row">
+              <label for="message" class="col-form-label">Message</label>
+              <input class="form-control" type="text" value="" name="message">
+            </div>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <ul class="list-group">
+          <li class="list-group-item" data-ng-repeat="item in list">
+            <div class="d-flex w-100 justify-content-between">
+              <h4 class="mb-1">Message from {{item.sender}}</h4>
+              <small>{{item.created_at}}</small>
+            </div>
+            <p class="mb-1">{{item.message}}</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="./libs/angular.min.js"></script>
+  <script src="./js/script.js"></script>
 </body>
 </html>

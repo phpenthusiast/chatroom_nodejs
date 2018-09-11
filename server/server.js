@@ -6,7 +6,7 @@ const socketIO = require('socket.io');
 const {generateMessage} = require('./utils/generateMessage');
 
 const publicPath = path.join(__dirname, '../public');
-const port = process.env.PORT || 3003;
+const port = process.env.PORT || 3009;
 var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
@@ -17,11 +17,7 @@ io.on('connection', (socket) => {
   console.log('New user connected');
   
   // socket.emit to all of the clients
-  socket.emit('newMsgFromServer', {
-    from: 'server',
-    text: 'Hi, welcome our new user',
-    createdAt: new Date().getTime()
-  });
+  socket.emit('newMsgFromServer', generateMessage('server', 'Hi, welcome our new user'));
 
   // socket.broadcast.emit to all of the clients except for the new one
   socket.broadcast.emit('newMsgFromServer', generateMessage('server', 'Hi, a user just joined the chat'));
@@ -32,6 +28,8 @@ io.on('connection', (socket) => {
 
     // io.broadcast.emit to all of the clients except for the one who sent the message
     socket.broadcast.emit('newMsgFromServer', generateMessage(msg.from + '(via broadcast)', msg.text));
+
+    //fn('An acknowledgement that comes from the server');
   });
 
   socket.on('disconnect', () => {
